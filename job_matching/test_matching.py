@@ -1,5 +1,5 @@
 """Regression tests for CareerLens. Run from this folder or discover from the project root."""
-
+import math
 import unittest
 
 try:  # Supports both package discovery and direct unittest invocation.
@@ -142,6 +142,44 @@ class MatchingTests(unittest.TestCase):
         score = calculate_text_similarity("Python SQL Docker", "Python SQL Git")
         self.assertGreaterEqual(score, 0.0)
         self.assertLessEqual(score, 100.0)
+    def test_final_score_rejects_non_finite_values(self):
+        for values in [
+            (math.nan, 20),
+            (math.inf, 20),
+            (50, -math.inf),
+            (True, 20),
+        ]:
+            with self.subTest(values=values):
+                with self.assertRaises(ValueError):
+                    calculate_final_score(*values)
+
+    def test_non_finite_skill_weights_are_rejected(self):
+        for weight in [math.nan, math.inf, -math.inf, True]:
+            with self.subTest(weight=weight):
+                with self.assertRaises(ValueError):
+                    analyze_job_match(
+                        {"Python"},
+                        {"python": weight},
+                        verbose=False,
+                    )
+
+    def test_duplicate_normalized_job_skills_are_not_double_counted(self):
+        result = analyze_job_match(
+            {"Python"},
+            {"Python": 3, "python programming": 3},
+            verbose=False,
+        )
+        self.assertEqual(result["total_weight"], 3.0)
+        self.assertEqual(result["matched_weight"], 3.0)
+        self.assertEqual(result["compatibility"], 100.0)
+
+    def test_invalid_candidate_skill_is_rejected(self):
+        with self.assertRaises(ValueError):
+            analyze_job_match(
+                {"Python", ""},
+                {"python": 3},
+                verbose=False,
+            )
 
 
 if __name__ == "__main__":

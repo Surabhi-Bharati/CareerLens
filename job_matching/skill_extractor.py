@@ -51,11 +51,15 @@ KNOWN_SKILLS = {s.lower() for s in SUPPORTED_SKILLS} | set(SKILL_ALIASES.values(
 
 REQUIRED_HEADINGS = (
     "required skills", "must have", "mandatory skills", "requirements",
-    "required qualifications",
+    "required qualifications","must-have skills",
+    "required technical skills",
+    "technical skills required",
 )
 PREFERRED_HEADINGS = (
     "preferred skills", "good to have", "nice to have", "optional skills",
-    "preferred qualifications",
+    "preferred qualifications","nice-to-have skills",
+    "preferred technical skills",
+    "optional requirements",
 )
 OTHER_HEADINGS = (
     "responsibilities", "about the role", "about the job", "what you will do",
@@ -134,6 +138,11 @@ def extract_skills(job_description):
         pattern = _skill_pattern(skill)
         if pattern is not None and pattern.search(job_description):
             found.append(normalize_extracted_skill(skill))
+        # Detect aliases in free text as well as in explicit skill lists.
+    for alias, canonical in SKILL_ALIASES.items():
+        pattern = _skill_pattern(alias)
+        if pattern is not None and pattern.search(job_description):
+            found.append(normalize_extracted_skill(canonical))
 
     found.extend(item for item, _section in _extract_skill_section_items(job_description))
 
