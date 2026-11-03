@@ -23,6 +23,7 @@ app.add_middleware(
     "http://127.0.0.1:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5174",
+    "https://careerlens-nu.vercel.app",    
     *[
         origin.strip()
         for origin in os.getenv("FRONTEND_URL", "").split(",")
