@@ -7,9 +7,11 @@ from job_matching.api_adapter import evaluate_candidate_for_api
 from job_matching.profile import CandidateProfile
 from job_matching.resume_builder import build_resume
 from job_matching.skill_gap import analyze_skill_gap
+from job_matching.career_recommendation import recommend_careers
 
 from backend.schemas.requests import (
     AnalyzeRequest,
+    CareerRecommendationRequest,
     ResumeBuildRequest,
     SkillGapRequest,
 )
@@ -54,6 +56,22 @@ def create_resume(request: ResumeBuildRequest) -> dict:
             profile=profile,
             target_role=request.target_role,
             job_description=request.job_description,
+        )
+    except (TypeError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+
+@router.post("/career-recommendations")
+def get_career_recommendations(
+    request: CareerRecommendationRequest,
+) -> dict:
+    """Recommend career roles based on candidate skills and interests."""
+    try:
+        profile = create_profile(request.profile)
+        return recommend_careers(
+            profile=profile,
+            top_n=request.top_n,
         )
     except (TypeError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

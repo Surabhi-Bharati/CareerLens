@@ -68,3 +68,15 @@ class ResumeBuildRequest(BaseModel):
     profile: CandidateProfileRequest
     target_role: str | None = None
     job_description: str | None = None
+
+
+class CareerRecommendationRequest(BaseModel):
+    profile: CandidateProfileRequest
+    top_n: int = Field(default=3, ge=1, le=10)
+
+from backend.schemas.requests import (
+    AnalyzeRequest,
+    CareerRecommendationRequest,
+    ResumeBuildRequest,
+    SkillGapRequest,
+)
