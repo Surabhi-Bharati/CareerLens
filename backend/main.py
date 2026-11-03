@@ -1,6 +1,6 @@
 
 """CareerLens FastAPI application."""
-
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -23,7 +23,12 @@ app.add_middleware(
     "http://127.0.0.1:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5174",
+    *[
+        origin.strip()
+        for origin in os.getenv("FRONTEND_URL", "").split(",")
+        if origin.strip()
     ],
+],
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type", "Authorization"],
