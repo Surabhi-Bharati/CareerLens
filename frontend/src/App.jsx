@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 const ATS_STOP_WORDS = new Set([
   "the", "and", "for", "with", "you", "your", "are", "our", "from", "that", "this", "will", "have", "has", "who", "what", "when", "where", "how", "all", "any", "can", "may", "must", "should", "their", "they", "them", "into", "about", "using", "use", "used", "work", "working", "role", "job", "team", "strong", "good", "ability", "experience", "knowledge", "skills", "skill", "years", "year", "required", "preferred", "responsibilities", "responsibility", "including", "such", "other", "etc", "will", "new", "build", "develop", "developer"
