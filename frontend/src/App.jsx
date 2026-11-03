@@ -260,8 +260,16 @@ export default function App() {
 
           <div className="flex flex-wrap items-center gap-2 sm:gap-5">
             <button
-              onClick={() => setPage("home")}
-              className="text-sm text-gray-300 hover:text-white"
+              onClick={() => {
+                setPage("home");
+                setError("");
+                setResult(null);
+              }}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                page === "home"
+                  ? "bg-violet-500 text-white"
+                  : "text-gray-300 hover:bg-white/10 hover:text-white"
+              }`}
             >
               Home
             </button>
@@ -271,7 +279,11 @@ export default function App() {
                 setError("");
                 setResult(null);
               }}
-              className="text-sm text-gray-300 hover:text-white"
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                page === "resume"
+                  ? "bg-violet-500 text-white"
+                  : "text-gray-300 hover:bg-white/10 hover:text-white"
+              }`}
             >
               Resume Builder
             </button>
@@ -281,7 +293,11 @@ export default function App() {
                 setError("");
                 setResult(null);
               }}
-              className="rounded-full bg-violet-500 px-4 py-2 text-sm font-semibold hover:bg-violet-400"
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                page === "analyze"
+                  ? "bg-violet-500 text-white"
+                  : "text-gray-300 hover:bg-white/10 hover:text-white"
+              }`}
             >
               Analyze Job
             </button>
@@ -291,7 +307,11 @@ export default function App() {
                 setCareerError("");
                 setCareerResult(null);
               }}
-              className="text-sm text-gray-300 hover:text-white"
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                page === "careers"
+                  ? "bg-violet-500 text-white"
+                  : "text-gray-300 hover:bg-white/10 hover:text-white"
+              }`}
             >
               Career Recommendations
             </button>
