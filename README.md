@@ -142,10 +142,6 @@ Test results may vary if the code or dependencies change. Full-application integ
 - Evaluate scoring behavior against carefully designed examples and relevant real-world data.
 - Add end-to-end tests for the integrated application.
 
-## 👥 Team
-
-CareerLens is being developed collaboratively as an academic project. Individual module contributions and team member details will be documented as implementation and integration progress.
-
 ## 📜 Disclaimer
 
 CareerLens is an educational project intended to support resume analysis and career preparation. Its outputs should not be treated as definitive hiring decisions, professional assessments, or guarantees of employment.
