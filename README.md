@@ -120,8 +120,7 @@ python -m unittest discover -s job_matching -v
 
 ## 🧪 Testing
 
-The job-matching module has been tested independently. The developer reported 22 passing unit tests in the local development environment.
-
+The job-matching module has been tested independently. 
 Test results may vary if the code or dependencies change. Full-application integration testing remains a separate step.
 
 ## ⚠️ Current Limitations
